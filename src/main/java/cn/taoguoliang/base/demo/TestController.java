@@ -14,14 +14,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api")
 public class TestController extends BaseController<Test, String, Test, Test> {
 
-    @Override
-    protected Class getEntityCls() {
-        return null;
-    }
-
-    @Override
-    protected Class getVoCls() {
-        return null;
-    }
-
 }

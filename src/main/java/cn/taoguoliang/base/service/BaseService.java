@@ -37,6 +37,10 @@ public interface BaseService<E> extends CommonQueryService<E> {
      **/
     BaseRepository<E> getBaseRepository();
 
+    default void setEntityCls(Class<E> cls) {
+        getBaseRepository().setEntityCls(cls);
+    }
+
     /**
      * BaseService
      *

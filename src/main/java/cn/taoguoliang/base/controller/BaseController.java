@@ -1,10 +1,12 @@
 package cn.taoguoliang.base.controller;
 
 import cn.taoguoliang.base.common.model.Result;
+import cn.taoguoliang.base.generic.GenericBean;
 import cn.taoguoliang.base.service.BaseService;
 import cn.taoguoliang.base.utils.BeanUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -23,28 +24,19 @@ import java.util.List;
  * @author taogl
  * @date 2021/12/10 10:36 AM
  **/
-public abstract class BaseController<E, K extends Serializable, D, V> {
+public abstract class BaseController<E, K extends Serializable, D, V> extends GenericBean<E, D, V> implements InitializingBean {
 
-    @Resource
+    @Resource(name = "baseService")
     private BaseService<E> baseService;
 
     /**
-     * 获取entity，实例化需要，暂时没想到好办法初始化bean.
-     *
-     * @return Class<E>
-     * @author taogl
-     * @date 2021/12/10 3:17 PM
-     **/
-    protected abstract Class<E> getEntityCls();
-
-    /**
-     * 获取vo，实例化需要，暂时没想到好办法初始化bean.
-     *
-     * @return Class<V>
-     * @author taogl
-     * @date 2021/12/10 3:17 PM
-     **/
-    protected abstract Class<V> getVoCls();
+     * 初始化默认实体
+     */
+    @Override
+    public void afterPropertiesSet() {
+        final Class<E> classOfGeneric = this.getClassOfE();
+        baseService.setEntityCls(classOfGeneric);
+    }
 
     /**
      * 保存实体.
@@ -57,10 +49,9 @@ public abstract class BaseController<E, K extends Serializable, D, V> {
     @ApiOperation(value = "新增一个实体", notes = "新增一个实体")
     @PostMapping
     public Result<V> save(@RequestBody D dto) {
-        ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
-        E entity = BeanUtils.getBeanCheckCls(dto, getEntityCls());
+        E entity = BeanUtils.getBeanCheckCls(dto, this.getClassOfE());
         E afterSave = baseService.save(entity);
-        V vo = BeanUtils.getBeanCheckCls(afterSave, getVoCls());
+        V vo = BeanUtils.getBeanCheckCls(afterSave, this.getClassOfV());
         return Result.ok(vo);
     }
 
@@ -94,9 +85,9 @@ public abstract class BaseController<E, K extends Serializable, D, V> {
     @ApiOperation(value = "新增或更新实体", notes = "新增或更新实体")
     @PutMapping
     public Result<V> saveOrUpdate(@RequestParam(value = "id", required = false) K id, @RequestBody D dto) {
-        E entity = BeanUtils.getBeanCheckCls(dto, getEntityCls());
+        E entity = BeanUtils.getBeanCheckCls(dto, this.getClassOfE());
         E afterSave = baseService.saveOrUpdate(entity, id);
-        V vo = BeanUtils.getBeanCheckCls(afterSave, getVoCls());
+        V vo = BeanUtils.getBeanCheckCls(afterSave, this.getClassOfV());
         return Result.ok(vo);
     }
 

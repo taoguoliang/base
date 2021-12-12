@@ -28,6 +28,13 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     @PersistenceContext
     private EntityManager entityManager;
 
+    private Class<E> cls;
+
+    @Override
+    public void setEntityCls(Class<E> cls) {
+        this.cls = cls;
+    }
+
     @Override
     public List<E> findAll() {
         return null;
@@ -198,5 +205,4 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     public long count(Specification<E> spec) {
         return 0;
     }
-
 }

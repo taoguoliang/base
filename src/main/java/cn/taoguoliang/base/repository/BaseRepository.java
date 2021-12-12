@@ -17,4 +17,6 @@ import java.io.Serializable;
 @NoRepositoryBean
 public interface BaseRepository<E> extends JpaSpecificationExecutor<E>, JpaRepository<E, Serializable> {
 
+    default void setEntityCls(Class<E> cls) {
+    }
 }

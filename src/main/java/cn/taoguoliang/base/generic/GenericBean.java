@@ -11,9 +11,9 @@ import java.lang.reflect.ParameterizedType;
  * @date 2021/12/10 10:43 AM
  */
 @SuppressWarnings("unchecked")
-public class GenericBean<E> {
+public class GenericBean<E, D, V> {
 
-    public E getInstance() {
+    public E getInstanceOfE() {
         ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
         Class<E> type = (Class<E>) superClass.getActualTypeArguments()[0];
         try {
@@ -24,9 +24,21 @@ public class GenericBean<E> {
         }
     }
 
-    public Class<E> getClassOfT() {
+    public Class<E> getClassOfE() {
+        return (Class<E>) this.getClassOfGeneric(0);
+    }
+
+    public Class<D> getClassOfD() {
+        return (Class<D>) this.getClassOfGeneric(1);
+    }
+
+    public Class<V> getClassOfV() {
+        return (Class<V>) this.getClassOfGeneric(2);
+    }
+
+    private Class<?> getClassOfGeneric(int idx) {
         ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
-        return (Class<E>) superClass.getActualTypeArguments()[0];
+        return (Class<?>) superClass.getActualTypeArguments()[idx];
     }
 
 }
