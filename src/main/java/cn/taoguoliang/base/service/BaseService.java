@@ -24,7 +24,7 @@ import java.util.List;
  * @description 基础服务
  * @date 2019/7/18 17:07
  */
-public interface BaseService<E, R extends BaseRepository<E>> extends CommonQueryService<E> {
+public interface BaseService<E> extends CommonQueryService<E> {
 
     /**
      * BaseService
@@ -35,7 +35,7 @@ public interface BaseService<E, R extends BaseRepository<E>> extends CommonQuery
      * @date 2019/9/11 10:57
      * @version v1.0.0
      **/
-    R getBaseRepository();
+    BaseRepository<E> getBaseRepository();
 
     /**
      * BaseService

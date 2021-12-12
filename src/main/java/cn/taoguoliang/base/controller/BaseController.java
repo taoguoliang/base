@@ -1,7 +1,6 @@
 package cn.taoguoliang.base.controller;
 
 import cn.taoguoliang.base.common.model.Result;
-import cn.taoguoliang.base.repository.BaseRepository;
 import cn.taoguoliang.base.service.BaseService;
 import cn.taoguoliang.base.utils.BeanUtils;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -23,10 +23,10 @@ import java.util.List;
  * @author taogl
  * @date 2021/12/10 10:36 AM
  **/
-public abstract class BaseController<E, K extends Serializable, R extends BaseRepository<E>, D, V> {
+public abstract class BaseController<E, K extends Serializable, D, V> {
 
     @Resource
-    private BaseService<E, R> baseService;
+    private BaseService<E> baseService;
 
     /**
      * 获取entity，实例化需要，暂时没想到好办法初始化bean.
@@ -57,6 +57,7 @@ public abstract class BaseController<E, K extends Serializable, R extends BaseRe
     @ApiOperation(value = "新增一个实体", notes = "新增一个实体")
     @PostMapping
     public Result<V> save(@RequestBody D dto) {
+        ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
         E entity = BeanUtils.getBeanCheckCls(dto, getEntityCls());
         E afterSave = baseService.save(entity);
         V vo = BeanUtils.getBeanCheckCls(afterSave, getVoCls());
