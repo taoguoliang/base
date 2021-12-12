@@ -1,11 +1,14 @@
 package cn.taoguoliang.base.repository.impl;
 
 import cn.taoguoliang.base.repository.BaseRepository;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,12 +28,19 @@ import java.util.function.Function;
  */
 @Repository("baseRepository")
 @Transactional(rollbackFor = Exception.class)
-public class BaseRepositoryImpl<E, K extends Serializable> implements BaseRepository<E, K> {
+public class BaseRepositoryImpl<E, K extends Serializable> implements BaseRepository<E, K>, ApplicationListener<ApplicationReadyEvent> {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     private Class<E> cls;
+
+    private SimpleJpaRepository<E, K> simpleJpaRepository;
+
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent event) {
+        simpleJpaRepository = new SimpleJpaRepository<>(cls, entityManager);
+    }
 
     @Override
     public void setEntityCls(Class<E> cls) {
@@ -39,173 +49,173 @@ public class BaseRepositoryImpl<E, K extends Serializable> implements BaseReposi
 
     @Override
     public List<E> findAll() {
-        return null;
+        return simpleJpaRepository.findAll();
     }
 
     @Override
     public List<E> findAll(Sort sort) {
-        return null;
+        return simpleJpaRepository.findAll(sort);
     }
 
     @Override
     public Page<E> findAll(Pageable pageable) {
-        return null;
+        return simpleJpaRepository.findAll(pageable);
     }
 
     @Override
     public List<E> findAllById(Iterable<K> ks) {
-        return null;
+        return simpleJpaRepository.findAllById(ks);
     }
 
     @Override
     public long count() {
-        return 0;
+        return simpleJpaRepository.count();
     }
 
     @Override
     public void deleteById(K k) {
-
+        simpleJpaRepository.deleteById(k);
     }
 
     @Override
     public void delete(E entity) {
-
+        simpleJpaRepository.delete(entity);
     }
 
     @Override
     public void deleteAllById(Iterable<? extends K> ks) {
-
+        simpleJpaRepository.deleteAllById(ks);
     }
 
     @Override
     public void deleteAll(Iterable<? extends E> entities) {
-
+        simpleJpaRepository.deleteAll(entities);
     }
 
     @Override
     public void deleteAll() {
-
+        simpleJpaRepository.deleteAll();
     }
 
     @Override
     public <S extends E> S save(S entity) {
-        entityManager.persist(entity);
-        return entity;
+        return simpleJpaRepository.save(entity);
     }
 
     @Override
     public <S extends E> List<S> saveAll(Iterable<S> entities) {
-        return null;
+        return simpleJpaRepository.saveAll(entities);
     }
 
     @Override
     public Optional<E> findById(K k) {
-        return Optional.empty();
+        return simpleJpaRepository.findById(k);
     }
 
     @Override
     public boolean existsById(K k) {
-        return false;
+        return simpleJpaRepository.existsById(k);
     }
 
     @Override
     public void flush() {
-
+        simpleJpaRepository.flush();
     }
 
     @Override
     public <S extends E> S saveAndFlush(S entity) {
-        return null;
+        return simpleJpaRepository.saveAndFlush(entity);
     }
 
     @Override
     public <S extends E> List<S> saveAllAndFlush(Iterable<S> entities) {
-        return null;
+        return simpleJpaRepository.saveAllAndFlush(entities);
     }
 
     @Override
     public void deleteAllInBatch(Iterable<E> entities) {
-
+        simpleJpaRepository.deleteAllInBatch(entities);
     }
 
     @Override
     public void deleteAllByIdInBatch(Iterable<K> ks) {
-
+        simpleJpaRepository.deleteAllByIdInBatch(ks);
     }
 
     @Override
     public void deleteAllInBatch() {
-
+        simpleJpaRepository.deleteAllInBatch();
     }
 
     @Override
+    @Deprecated
     public E getOne(K k) {
-        return null;
+        return simpleJpaRepository.getOne(k);
     }
 
     @Override
     public E getById(K k) {
-        return null;
+        return simpleJpaRepository.getById(k);
     }
 
     @Override
     public <S extends E> Optional<S> findOne(Example<S> example) {
-        return Optional.empty();
+        return simpleJpaRepository.findOne(example);
     }
 
     @Override
     public <S extends E> List<S> findAll(Example<S> example) {
-        return null;
+        return simpleJpaRepository.findAll(example);
     }
 
     @Override
     public <S extends E> List<S> findAll(Example<S> example, Sort sort) {
-        return null;
+        return simpleJpaRepository.findAll(example, sort);
     }
 
     @Override
     public <S extends E> Page<S> findAll(Example<S> example, Pageable pageable) {
-        return null;
+        return simpleJpaRepository.findAll(example, pageable);
     }
 
     @Override
     public <S extends E> long count(Example<S> example) {
-        return 0;
+        return simpleJpaRepository.count(example);
     }
 
     @Override
     public <S extends E> boolean exists(Example<S> example) {
-        return false;
+        return simpleJpaRepository.exists(example);
     }
 
     @Override
     public <S extends E, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
-        return null;
+        return simpleJpaRepository.findBy(example, queryFunction);
     }
 
     @Override
     public Optional<E> findOne(Specification<E> spec) {
-        return Optional.empty();
+        return simpleJpaRepository.findOne(spec);
     }
 
     @Override
     public List<E> findAll(Specification<E> spec) {
-        return null;
+        return simpleJpaRepository.findAll(spec);
     }
 
     @Override
     public Page<E> findAll(Specification<E> spec, Pageable pageable) {
-        return null;
+        return simpleJpaRepository.findAll(spec, pageable);
     }
 
     @Override
     public List<E> findAll(Specification<E> spec, Sort sort) {
-        return null;
+        return simpleJpaRepository.findAll(spec, sort);
     }
 
     @Override
     public long count(Specification<E> spec) {
-        return 0;
+        return simpleJpaRepository.count(spec);
     }
 
 }

@@ -43,7 +43,7 @@ public final class SpecificationSupplier {
             andPredicates = andPredicates == null ? Collections.emptyList() : andPredicates;
             List<Predicate> orPredicates = predicatesMap.get(BooleanOperator.OR);
             orPredicates = orPredicates == null ? Collections.emptyList() : orPredicates;
-            return meragePredicate(criteriaBuilder, andPredicates, orPredicates);
+            return mergePredicate(criteriaBuilder, andPredicates, orPredicates);
         };
     }
 
@@ -59,7 +59,7 @@ public final class SpecificationSupplier {
      * @date 2019年10月31日 下午1:58:36
      * @version v1.0.0
      */
-    private static Predicate meragePredicate(CriteriaBuilder criteriaBuilder, List<Predicate> andPredicates,
+    private static Predicate mergePredicate(CriteriaBuilder criteriaBuilder, List<Predicate> andPredicates,
             List<Predicate> orPredicates) {
         if (!CollectionUtils.isEmpty(andPredicates) && !CollectionUtils.isEmpty(orPredicates)) {
             // 若有and和or条件
