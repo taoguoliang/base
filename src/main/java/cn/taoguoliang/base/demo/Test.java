@@ -7,12 +7,13 @@ package cn.taoguoliang.base.demo;
  * @date 2021/12/12 01:04
  */
 
+import cn.taoguoliang.base.common.model.BaseEntity;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
-public class Test {
+public class Test extends BaseEntity {
 
-    @Id
-    private String id;
+    private static final long serialVersionUID = -102773664852850638L;
+
 }

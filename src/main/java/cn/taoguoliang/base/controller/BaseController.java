@@ -27,10 +27,12 @@ import java.util.List;
 public abstract class BaseController<E, K extends Serializable, D, V> extends GenericBean<E, D, V> implements InitializingBean {
 
     @Resource(name = "baseService")
-    private BaseService<E> baseService;
+    private BaseService<E, K> baseService;
 
     /**
-     * 初始化默认实体
+     * 初始化默认范型实体
+     * 这里是为了让继承此类的接口类，能传入当前接口操作的实体，然后通过 Service 传入 repository
+     * 传入到 repository 之后 就可以使用 EntityManager 的通用方法了
      */
     @Override
     public void afterPropertiesSet() {

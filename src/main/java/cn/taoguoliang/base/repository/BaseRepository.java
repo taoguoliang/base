@@ -15,8 +15,15 @@ import java.io.Serializable;
  * @date 2019/7/18 17:08
  */
 @NoRepositoryBean
-public interface BaseRepository<E> extends JpaSpecificationExecutor<E>, JpaRepository<E, Serializable> {
+public interface BaseRepository<E, K extends Serializable> extends JpaSpecificationExecutor<E>, JpaRepository<E, K> {
 
+    /**
+     * 默认范型实体填充.
+     *
+     * @param cls 默认范型实体
+     * @author taogl
+     * @date 2021/12/12 21:20
+     **/
     default void setEntityCls(Class<E> cls) {
     }
 }

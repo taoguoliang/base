@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,7 +24,8 @@ import java.util.function.Function;
  * @date 2021/12/12 13:44
  */
 @Repository("baseRepository")
-public class BaseRepositoryImpl<E> implements BaseRepository<E> {
+@Transactional(rollbackFor = Exception.class)
+public class BaseRepositoryImpl<E, K extends Serializable> implements BaseRepository<E, K> {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -51,7 +53,7 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     }
 
     @Override
-    public List<E> findAllById(Iterable<Serializable> serializables) {
+    public List<E> findAllById(Iterable<K> ks) {
         return null;
     }
 
@@ -61,7 +63,7 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     }
 
     @Override
-    public void deleteById(Serializable serializable) {
+    public void deleteById(K k) {
 
     }
 
@@ -71,7 +73,7 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     }
 
     @Override
-    public void deleteAllById(Iterable<? extends Serializable> serializables) {
+    public void deleteAllById(Iterable<? extends K> ks) {
 
     }
 
@@ -97,12 +99,12 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     }
 
     @Override
-    public Optional<E> findById(Serializable serializable) {
+    public Optional<E> findById(K k) {
         return Optional.empty();
     }
 
     @Override
-    public boolean existsById(Serializable serializable) {
+    public boolean existsById(K k) {
         return false;
     }
 
@@ -127,7 +129,7 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     }
 
     @Override
-    public void deleteAllByIdInBatch(Iterable<Serializable> serializables) {
+    public void deleteAllByIdInBatch(Iterable<K> ks) {
 
     }
 
@@ -137,12 +139,12 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     }
 
     @Override
-    public E getOne(Serializable serializable) {
+    public E getOne(K k) {
         return null;
     }
 
     @Override
-    public E getById(Serializable serializable) {
+    public E getById(K k) {
         return null;
     }
 
@@ -205,4 +207,5 @@ public class BaseRepositoryImpl<E> implements BaseRepository<E> {
     public long count(Specification<E> spec) {
         return 0;
     }
+
 }

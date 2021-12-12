@@ -18,13 +18,12 @@ import java.util.List;
  * BaseService
  *
  * @param <E> 查询实体
- * @param <R> 主键类型
  * @author taogl
  * @version v1.0.0
  * @description 基础服务
  * @date 2019/7/18 17:07
  */
-public interface BaseService<E> extends CommonQueryService<E> {
+public interface BaseService<E, K extends Serializable> extends CommonQueryService<E> {
 
     /**
      * BaseService
@@ -35,8 +34,15 @@ public interface BaseService<E> extends CommonQueryService<E> {
      * @date 2019/9/11 10:57
      * @version v1.0.0
      **/
-    BaseRepository<E> getBaseRepository();
+    BaseRepository<E, K> getBaseRepository();
 
+    /**
+     * 默认服务实体填充.
+     *
+     * @param cls 默认实体
+     * @author taogl
+     * @date 2021/12/12 21:17
+     **/
     default void setEntityCls(Class<E> cls) {
         getBaseRepository().setEntityCls(cls);
     }
@@ -51,7 +57,7 @@ public interface BaseService<E> extends CommonQueryService<E> {
      * @date 2019/9/11 10:58
      * @version v1.0.0
      **/
-    default E getById(Serializable id) {
+    default E getById(K id) {
         return getBaseRepository().findById(id).orElse(null);
     }
 
@@ -92,7 +98,7 @@ public interface BaseService<E> extends CommonQueryService<E> {
      * @date 2019/9/11 11:01
      * @version v1.0.0
      **/
-    default void deleteById(Serializable id) {
+    default void deleteById(K id) {
         getBaseRepository().deleteById(id);
     }
 
@@ -146,7 +152,7 @@ public interface BaseService<E> extends CommonQueryService<E> {
      * @version v1.0.0
      **/
     @Transactional(rollbackFor = Exception.class)
-    default E saveOrUpdate(E entity, Serializable id) {
+    default E saveOrUpdate(E entity, K id) {
         E old = id == null ? null : getById(id);
         if (old == null) {
             return save(entity);
