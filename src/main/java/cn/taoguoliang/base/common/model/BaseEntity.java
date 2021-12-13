@@ -39,7 +39,7 @@ public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1663734744181943264L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ApiModelProperty("创建时间")
