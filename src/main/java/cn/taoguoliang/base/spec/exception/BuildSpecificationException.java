@@ -1,13 +1,12 @@
 package cn.taoguoliang.base.spec.exception;
 
 /**
- *
  * BuildSpecificationException
  *
- * @description 构建异常
  * @author taogl
- * @date 2019年3月28日 下午3:32:22
  * @version v1.0.0
+ * @description 构建异常
+ * @date 2019年3月28日 下午3:32:22
  */
 public class BuildSpecificationException extends RuntimeException {
 

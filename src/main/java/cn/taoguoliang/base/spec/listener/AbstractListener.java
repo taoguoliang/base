@@ -16,10 +16,10 @@ import java.lang.reflect.Method;
 /**
  * AbstractListener
  *
- * @description 抽象监听器逻辑
  * @author taogl
- * @date 2019年3月27日 下午5:10:48
  * @version v1.2.0
+ * @description 抽象监听器逻辑
+ * @date 2019年3月27日 下午5:10:48
  */
 public abstract class AbstractListener implements SpecificationListener {
 
@@ -58,11 +58,10 @@ public abstract class AbstractListener implements SpecificationListener {
     }
 
     /**
-     *
      * AbstractListener
      *
-     * @description 获取相对应的注解类
      * @return
+     * @description 获取相对应的注解类
      * @author taogl
      * @date 2019年3月27日 下午5:14:40
      * @version v1.0.0
@@ -70,16 +69,15 @@ public abstract class AbstractListener implements SpecificationListener {
     public abstract <T> Class<T> getAnnotation();
 
     /**
-     *
      * AbstractListener
      *
-     * @description 提供条件的构建逻辑
      * @param criteriaBuilder
      * @param from {@link From}
      * @param name 实体类的属性名
      * @param value 对应属性的值
      * @param annotation 当前字段使用的注解
      * @return {@link Predicate}
+     * @description 提供条件的构建逻辑
      * @author taogl
      * @date 2019年3月27日 下午5:15:59
      * @version v1.2.0
