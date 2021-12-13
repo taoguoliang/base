@@ -8,11 +8,11 @@
         <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.white.zero</groupId>
-    <artifactId>base</artifactId>
+    <groupId>cn.linz</groupId>
+    <artifactId>linz-base</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>base</name>
-    <description>base</description>
+    <name>linz-base</name>
+    <description>named by my gf.</description>
     <developers>
         <developer>
             <name>taoguoliang</name>
