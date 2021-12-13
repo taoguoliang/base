@@ -1,6 +1,7 @@
 package cn.taoguoliang.base.anno;
 
-import org.springframework.context.annotation.ComponentScan;
+import cn.taoguoliang.base.config.BaseCommonConfig;
+import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -14,10 +15,10 @@ import java.lang.annotation.Target;
  * @author taogl
  * @date 2021/12/13 9:49 AM
  */
-@ComponentScan("cn.taoguoliang.base")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
+@Import(BaseCommonConfig.class)
 public @interface EnableBaseFrame {
 
 }

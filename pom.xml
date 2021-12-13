@@ -13,6 +13,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>base</name>
     <description>base</description>
+    <developers>
+        <developer>
+            <name>taoguoliang</name>
+            <url>https://taoguoliang.cn</url>
+        </developer>
+    </developers>
     <properties>
         <java.version>1.8</java.version>
         <fastjson.version>1.2.78</fastjson.version>
@@ -75,14 +81,14 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
+                        <exclude>**/base/demo1/</exclude>
+                        <exclude>**/base/demo/</exclude>
+                        <exclude>**/application.yml</exclude>
+                        <exclude>**/base/BaseApplication.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
