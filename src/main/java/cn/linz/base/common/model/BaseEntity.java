@@ -34,13 +34,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @MappedSuperclass
 @EntityListeners({EntityListener.class, AuditingEntityListener.class})
-public class BaseEntity implements Serializable {
+public class BaseEntity<K extends Serializable> implements Serializable {
 
     private static final long serialVersionUID = 1663734744181943264L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private K id;
 
     @ApiModelProperty("创建时间")
     @CreatedDate

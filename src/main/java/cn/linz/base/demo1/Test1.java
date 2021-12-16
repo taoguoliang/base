@@ -12,7 +12,7 @@ import cn.linz.base.common.model.BaseEntity;
 import javax.persistence.Entity;
 
 @Entity
-public class Test1 extends BaseEntity {
+public class Test1 extends BaseEntity<String> {
 
     private static final long serialVersionUID = -8869179051522090862L;
 
