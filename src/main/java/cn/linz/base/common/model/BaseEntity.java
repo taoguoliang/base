@@ -1,6 +1,5 @@
 package cn.linz.base.common.model;
 
-import cn.linz.base.listener.EntityListener;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,7 +32,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
-@EntityListeners({EntityListener.class, AuditingEntityListener.class})
+@EntityListeners({AuditingEntityListener.class})
 public class BaseEntity<K extends Serializable> implements Serializable {
 
     private static final long serialVersionUID = 1663734744181943264L;
