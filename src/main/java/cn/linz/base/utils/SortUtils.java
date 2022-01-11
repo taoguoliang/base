@@ -11,9 +11,6 @@ import java.util.List;
  * SortUtils
  *
  * @author taogl
- * @version 1.0.0
- * @description 处理 Sort 工具类
- * @date 2019年9月10日 下午1:54:56
  */
 public final class SortUtils {
 
@@ -21,15 +18,9 @@ public final class SortUtils {
     }
 
     /**
-     * SortUtils
-     *
-     * @param sort
-     * @return
+     * @param sort 排序字段
      * @description 将 sort 字符串转换为 Order 集合<br>
-     *         例如："-fyid,create_time" -> [Order(Direction.DESC, "fyid"),Order(Direction.ASC, "create_time")]
-     * @author taogl
-     * @date 2019年9月10日 下午2:00:20
-     * @version v1.0.0
+     *         例如："-create_time,id" -> [Order(Direction.DESC, "create_time"),Order(Direction.ASC, "id"),]
      */
     public static List<Order> toOrders(String sort) {
         List<Order> orders = null;

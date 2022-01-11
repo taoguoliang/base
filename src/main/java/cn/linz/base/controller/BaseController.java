@@ -1,5 +1,6 @@
 package cn.linz.base.controller;
 
+import cn.linz.base.common.model.PageAndSort;
 import cn.linz.base.common.model.Result;
 import cn.linz.base.generic.GenericBean;
 import cn.linz.base.service.BaseService;
@@ -7,7 +8,9 @@ import cn.linz.base.utils.BeanUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * BaseController.
@@ -24,7 +29,7 @@ import java.util.List;
  * @author taogl
  * @date 2021/12/10 10:36 AM
  **/
-public abstract class BaseController<E, K extends Serializable, D, V> extends GenericBean<E, D, V> implements InitializingBean {
+public abstract class BaseController<E, K extends Serializable, D, Q, V> extends GenericBean<E, D, Q, V> implements InitializingBean {
 
     @Resource(name = "baseService")
     private BaseService<E, K> baseService;
@@ -61,7 +66,7 @@ public abstract class BaseController<E, K extends Serializable, D, V> extends Ge
      * 保存前先校验数据是否存在.
      *
      * @param dto dto
-     * @return cn.taoguoliang.base.common.model.Result<V>
+     * @return Result<V>
      * @author taogl
      * @date 2021/12/10 5:39 PM
      **/
@@ -93,11 +98,79 @@ public abstract class BaseController<E, K extends Serializable, D, V> extends Ge
         return Result.ok(vo);
     }
 
-    @ApiOperation(value = "删除一个数据", notes = "物理删除")
+    /**
+     * 根据主键删除实体
+     *
+     * @param id key
+     * @return Result
+     */
+    @ApiOperation(value = "根据主键删除一个数据", notes = "物理删除")
     @DeleteMapping("{id}")
     public Result<Void> del(@PathVariable(value = "id") K id) {
         baseService.deleteById(id);
         return Result.ok();
+    }
+
+    /**
+     * 根据主键获取一个实体
+     *
+     * @param id key
+     * @return Result
+     */
+    @ApiOperation(value = "根据主键获取数据")
+    @GetMapping("{id}")
+    public Result<V> get(@PathVariable(value = "id") K id) {
+        E byId = baseService.getById(id);
+        V result = BeanUtils.getBeanCheckCls(byId, this.getClassOfV());
+        return Result.ok(result);
+    }
+
+    /**
+     * 根据参数查询分页数据
+     *
+     * @param pageAndSort 分页对象，可扩展
+     * @return 分页结果数据
+     */
+    @ApiOperation(value = "查询分页数据")
+    @GetMapping
+    @SuppressWarnings("unchecked")
+    public Result<Page<V>> page(PageAndSort pageAndSort) {
+        Page<E> pageList = baseService.getPageList(pageAndSort);
+        if (Objects.equals(this.getClassOfE(), this.getClassOfV())) {
+            return Result.ok((Page<V>) pageList);
+        }
+        return Result.ok(pageList.map(entity -> BeanUtils.copyProperties(entity, this.getClassOfV())));
+    }
+
+    /**
+     * 根据参数查询列表数据
+     *
+     * @param param 查询参数
+     * @return 列表数据
+     */
+    @ApiOperation(value = "查询列表数据")
+    @GetMapping("/list")
+    @SuppressWarnings("unchecked")
+    public List<V> list(Q param) {
+        List<E> listByParam = baseService.getListByParam(param);
+        if (Objects.equals(this.getClassOfE(), this.getClassOfV())) {
+            return (List<V>) listByParam;
+        }
+        return listByParam.stream().map(entity -> BeanUtils.copyProperties(entity, this.getClassOfV())).collect(Collectors.toList());
+    }
+
+    /**
+     * 根据参数查询单个数据
+     *
+     * @param param 查询参数
+     * @return 单个数据
+     */
+    @ApiOperation(value = "查询单个数据")
+    @GetMapping("/one")
+    public Result<V> one(Q param) {
+        E oneByParam = baseService.getOneByParam(param);
+        V result = BeanUtils.getBeanCheckCls(oneByParam, this.getClassOfV());
+        return Result.ok(result);
     }
 
 }

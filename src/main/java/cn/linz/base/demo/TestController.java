@@ -1,6 +1,7 @@
 package cn.linz.base.demo;
 
 import cn.linz.base.controller.BaseController;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api")
-public class TestController extends BaseController<Test, String, Test, Test> {
+@Api(tags = "测试")
+public class TestController extends BaseController<Test, String, Test, Test, Test> {
 
 }

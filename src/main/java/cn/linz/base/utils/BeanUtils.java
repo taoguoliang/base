@@ -7,6 +7,7 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import java.beans.FeatureDescriptor;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -56,7 +57,7 @@ public final class BeanUtils {
      * @date 2021/12/10 10:55 AM
      **/
     public static <T> T copyProperties(Object source, Class<T> cls) {
-        T target = ReflectUtil.newInstance(cls);
+        T target = ReflectUtil.newInstanceIfPossible(cls);
         BeanUtil.copyProperties(source, target);
         return target;
     }
@@ -75,7 +76,24 @@ public final class BeanUtils {
         if (Objects.equals(source.getClass(), cls)) {
             return (D) source;
         }
-        return BeanUtils.copyProperties(source, cls);
+        return BeanUtil.copyProperties(source, cls);
+    }
+
+    /**
+     * 根据传进来的cls类型判断是否类型相同，相同list强转，不同就拷贝.
+     *
+     * @param source 原数据list
+     * @param cls 要check的class类型
+     * @param <S> source类型
+     * @param <D> destination类型
+     * @return 结果list
+     */
+    @SuppressWarnings("unchecked")
+    public static <S, D> Collection<D> getBeanListCheckCls(Collection<S> source, Class<D> cls) {
+        if (Objects.equals(source.getClass(), cls)) {
+            return (Collection<D>) source;
+        }
+        return BeanUtil.copyToList(source, cls);
     }
 
 }

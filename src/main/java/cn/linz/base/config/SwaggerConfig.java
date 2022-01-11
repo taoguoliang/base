@@ -1,6 +1,7 @@
 package cn.linz.base.config;
 
 import io.swagger.annotations.Api;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -33,6 +34,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
