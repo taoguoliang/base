@@ -13,6 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
@@ -35,7 +36,10 @@ public class BaseEntity<K extends Serializable> implements Serializable {
 
     private static final long serialVersionUID = 1663734744181943264L;
 
+    public static final String ID_GENERATOR_NAME = "id_generator";
+
     @Id
+    @GeneratedValue(generator = ID_GENERATOR_NAME)
     private K id;
 
     @ApiModelProperty("创建时间")
