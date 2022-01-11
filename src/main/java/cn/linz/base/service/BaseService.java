@@ -1,10 +1,11 @@
 package cn.linz.base.service;
 
+import cn.linz.base.common.model.BaseSort;
 import cn.linz.base.common.model.PageAndSort;
 import cn.linz.base.repository.BaseRepository;
 import cn.linz.base.spec.supplier.SpecificationSupplier;
 import cn.linz.base.utils.BeanUtils;
-import cn.linz.base.utils.PageUtils;
+import cn.linz.base.utils.PageAndSortUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -19,9 +20,6 @@ import java.util.List;
  *
  * @param <E> 查询实体
  * @author taogl
- * @version v1.0.0
- * @description 基础服务
- * @date 2019/7/18 17:07
  */
 public interface BaseService<E, K extends Serializable> extends CommonQueryService<E> {
 
@@ -31,8 +29,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return repository
      * @description 获取对应的repository
      * @author taogl
-     * @date 2019/9/11 10:57
-     * @version v1.0.0
      **/
     BaseRepository<E, K> getBaseRepository();
 
@@ -54,8 +50,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 实体
      * @description 根据主键查询实体
      * @author taogl
-     * @date 2019/9/11 10:58
-     * @version v1.0.0
      **/
     default E getById(K id) {
         return getBaseRepository().findById(id).orElse(null);
@@ -68,8 +62,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 保存之后的实体
      * @description 保存
      * @author taogl
-     * @date 2019/9/11 10:58
-     * @version v1.0.0
      **/
     default E save(E entity) {
         return getBaseRepository().save(entity);
@@ -82,8 +74,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 更新之后的实体
      * @description 全量更新
      * @author taogl
-     * @date 2019/11/14 17:37
-     * @version v1.0.0
      **/
     default E update(E entity) {
         return getBaseRepository().save(entity);
@@ -95,8 +85,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @param id 主键
      * @description 根据主键删除
      * @author taogl
-     * @date 2019/9/11 11:01
-     * @version v1.0.0
      **/
     default void deleteById(K id) {
         getBaseRepository().deleteById(id);
@@ -108,8 +96,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @param entities 实体集合
      * @description 批量删除-不能实现逻辑删除
      * @author taogl
-     * @date 2019/9/11 11:01
-     * @version v1.0.0
      **/
     default void deleteInBatch(Iterable<E> entities) {
         getBaseRepository().deleteInBatch(entities);
@@ -120,8 +106,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      *
      * @description 全量删除
      * @author taogl
-     * @date 2019/12/5 10:49
-     * @version v1.0.0
      **/
     default void deleteAll() {
         getBaseRepository().deleteAll();
@@ -133,8 +117,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @param entities 删除的实体
      * @description 批量删除-能实现逻辑删除
      * @author taogl
-     * @date 2019/12/5 10:50
-     * @version v1.0.0
      **/
     default void deleteAll(Iterable<E> entities) {
         getBaseRepository().deleteAll(entities);
@@ -148,8 +130,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 保存/更新的实体
      * @description 保存或者更新
      * @author taogl
-     * @date 2019/9/11 11:01
-     * @version v1.0.0
      **/
     @Transactional(rollbackFor = Exception.class)
     default E saveOrUpdate(E entity, K id) {
@@ -169,8 +149,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 查询的实体
      * @description 根据参数查询（参数是pageAndSort，jpa-plus的实体，不是普通的entity，和example不一样）
      * @author taogl
-     * @date 2019/9/11 11:02
-     * @version v1.0.0
      **/
     default E getOneByParam(Object param) {
         return getBaseRepository().findOne(queryPre(param)).orElse(null);
@@ -183,12 +161,21 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 查询的实体集合
      * @description 根据参数查询（参数是pageAndSort，jpa-plus的实体，不是普通的entity，和example不一样）
      * @author taogl
-     * @date 2019/9/11 11:03
-     * @version v1.0.0
      **/
     @Override
     default List<E> getListByParam(Object param) {
         return getBaseRepository().findAll(queryPre(param));
+    }
+
+    /**
+     * 根据参数查询列表，带排序
+     *
+     * @param param 参数及排序字段
+     * @return 列表数据
+     */
+    @Override
+    default List<E> getListByParamWithSort(BaseSort param) {
+        return getBaseRepository().findAll(queryPre(param), PageAndSortUtils.sequence(param));
     }
 
     /**
@@ -198,12 +185,10 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 查询的实体集合-分页
      * @description 根据参数查询（参数是pageAndSort，jpa-plus的实体，不是普通的entity，和example不一样）
      * @author taogl
-     * @date 2019/9/11 11:03
-     * @version v1.0.0
      **/
     @Override
     default Page<E> getPageList(PageAndSort param) {
-        return getBaseRepository().findAll(queryPre(param), PageUtils.buildPageRequest(param));
+        return getBaseRepository().findAll(queryPre(param), PageAndSortUtils.buildPageRequest(param));
     }
 
     /**
@@ -213,8 +198,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 查询参数
      * @description 构建查询参数
      * @author taogl
-     * @date 2019/9/11 11:07
-     * @version v1.0.0
      **/
     default Specification<E> queryPre(Object param) {
         return SpecificationSupplier.buildSpecification(param);
@@ -227,8 +210,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 实体集合
      * @description 根据example查询list
      * @author taogl
-     * @date 2019/9/11 11:08
-     * @version v1.0.0
      **/
     default List<E> findAll(Example<E> example) {
         return getBaseRepository().findAll(example);
@@ -240,8 +221,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 查询集合E
      * @description 查询全部
      * @author taogl
-     * @date 2019/10/11 11:02
-     * @version v1.0.0
      **/
     default List<E> findAll() {
         return getBaseRepository().findAll();
@@ -254,8 +233,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 查询集合E
      * @description 查询全部-排序
      * @author taogl
-     * @date 2019/11/11 10:58
-     * @version v1.0.0
      **/
     default List<E> findAll(Sort sort) {
         return getBaseRepository().findAll(sort);
@@ -269,11 +246,9 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 实体集合分页
      * @description 根据example查询page
      * @author taogl
-     * @date 2019/9/11 11:08
-     * @version v1.0.0
      **/
     default Page<E> findPageAll(Example<E> example, PageAndSort pageAndSort) {
-        return getBaseRepository().findAll(example, PageUtils.buildPageRequest(pageAndSort));
+        return getBaseRepository().findAll(example, PageAndSortUtils.buildPageRequest(pageAndSort));
     }
 
     /**
@@ -283,8 +258,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return 单个实体
      * @description 根据example查询一个对象
      * @author taogl
-     * @date 2019/9/11 11:08
-     * @version v1.0.0
      **/
     default E findOne(Example<E> example) {
         return getBaseRepository().findOne(example).orElse(null);
@@ -297,8 +270,6 @@ public interface BaseService<E, K extends Serializable> extends CommonQueryServi
      * @return v1.0.0
      * @description 批量保存
      * @author taogl
-     * @date 2019/11/11 10:54
-     * @version v1.0.0
      **/
     default List<E> saveAll(Iterable<E> entities) {
         return getBaseRepository().saveAll(entities);

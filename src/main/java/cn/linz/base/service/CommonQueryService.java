@@ -1,5 +1,6 @@
 package cn.linz.base.service;
 
+import cn.linz.base.common.model.BaseSort;
 import cn.linz.base.common.model.PageAndSort;
 import org.springframework.data.domain.Page;
 
@@ -23,10 +24,16 @@ public interface CommonQueryService<E> {
      * @return 列表集合
      * @description 列表查询
      * @author taogl
-     * @date 2019/11/11 11:02
-     * @version v1.0.0
      **/
     List<E> getListByParam(Object param);
+
+    /**
+     * 根据参数查询列表，带排序
+     *
+     * @param param 查询参数
+     * @return 列表数据
+     */
+    List<E> getListByParamWithSort(BaseSort param);
 
     /**
      * CommonQueryService
@@ -35,8 +42,6 @@ public interface CommonQueryService<E> {
      * @return 分页集合
      * @description 根据jpa-plus的参数查询分页数据
      * @author taogl
-     * @date 2019/11/11 11:02
-     * @version v1.0.0
      **/
     Page<E> getPageList(PageAndSort param);
 

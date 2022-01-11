@@ -1,14 +1,10 @@
 package cn.linz.base.common.model;
 
 import cn.linz.base.common.consts.PageConsts;
-import cn.linz.base.utils.SortUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Sort.Order;
-
-import java.util.List;
 
 /**
  * PageAndSort
@@ -21,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PageAndSort {
+public class PageAndSort extends BaseSort {
 
     /**
      * 请求页index
@@ -40,25 +36,5 @@ public class PageAndSort {
      */
     @ApiModelProperty("偏移量")
     private Integer offset;
-
-    /**
-     * 排序字段
-     */
-    @ApiModelProperty(value = "排序字段", notes = "-create_time,id => create_time desc and id asc")
-    private String sort;
-
-    /**
-     * 排序
-     **/
-    @ApiModelProperty(hidden = true)
-    private List<Order> orders;
-
-    /**
-     * 设置排序
-     * @param sort 排序字段
-     */
-    public void setSort(String sort) {
-        this.orders = SortUtils.toOrders(sort);
-    }
 
 }

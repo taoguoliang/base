@@ -1,5 +1,6 @@
 package cn.linz.base.utils;
 
+import cn.linz.base.common.model.BaseSort;
 import cn.linz.base.common.model.PageAndSort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -11,27 +12,21 @@ import org.springframework.data.domain.Sort.Order;
 import java.util.List;
 
 /**
- * PageUtil
+ * PageAndSortUtils
  *
  * @author taogl
- * @version 1.0
- * @description 分页工具类
- * @date 2019年3月13日 下午2:38:37
  */
-public final class PageUtils {
+public final class PageAndSortUtils {
 
-    private PageUtils() {
+    private PageAndSortUtils() {
     }
 
     /**
-     * PageUtil
+     * PageAndSortUtils
      *
-     * @param pageAndSort
-     * @return
+     * @param pageAndSort 分页及排序
      * @description 设置分页信息
      * @author taogl
-     * @date 2019年3月13日 下午2:38:29
-     * @version 1.0
      */
     public static PageRequest buildPageRequest(PageAndSort pageAndSort) {
         if (pageAndSort.getOffset() != null) {
@@ -42,18 +37,15 @@ public final class PageUtils {
     }
 
     /**
-     * PageUtil
+     * PageAndSortUtils
      *
-     * @param pageAndSort
-     * @return
+     * @param sort 排序字段
      * @description 设置排序
      * @author taogl
-     * @date 2019年3月13日 下午2:38:18
-     * @version 1.0
      */
-    public static Sort sequence(PageAndSort pageAndSort) {
-        if (pageAndSort.getOrders() != null && !pageAndSort.getOrders().isEmpty()) {
-            return Sort.by(pageAndSort.getOrders());
+    public static Sort sequence(BaseSort sort) {
+        if (sort.getOrders() != null && !sort.getOrders().isEmpty()) {
+            return Sort.by(sort.getOrders());
         }
         return Sort.unsorted();
     }
@@ -74,20 +66,17 @@ public final class PageUtils {
     }
 
     /**
-     * PageUtils
+     * PageAndSortUtils
      *
      * @param list 需要分页的list
      * @param pageable 分页参数
-     * @return 分页后的数据
      * @description 把传入的List分页返回
      * @author taogl
-     * @date 2019/4/12 13:17
-     * @version v1.0.0
      **/
     public static <T> Page<T> listConvertToPage(List<T> list, PageAndSort pageable) {
         int start = pageable.getOffset();
         int end = Math.min((start + pageable.getLimit()), list.size());
-        return new PageImpl<>(list.subList(start, end), PageUtils.buildPageRequest(pageable), list.size());
+        return new PageImpl<>(list.subList(start, end), PageAndSortUtils.buildPageRequest(pageable), list.size());
     }
 
 }

@@ -1,5 +1,6 @@
 package cn.linz.base.controller;
 
+import cn.linz.base.common.model.BaseSort;
 import cn.linz.base.common.model.PageAndSort;
 import cn.linz.base.common.model.Result;
 import cn.linz.base.generic.GenericBean;
@@ -157,6 +158,23 @@ public abstract class BaseController<E, K extends Serializable, D, Q, V> extends
             return (List<V>) listByParam;
         }
         return listByParam.stream().map(entity -> BeanUtils.copyProperties(entity, this.getClassOfV())).collect(Collectors.toList());
+    }
+
+    /**
+     * 根据参数查询列表数据，带排序
+     *
+     * @param param 查询参数
+     * @return 列表数据
+     */
+    @ApiOperation(value = "查询列表数据，带排序")
+    @GetMapping("/list-sort")
+    @SuppressWarnings("unchecked")
+    public List<V> listWithSort(BaseSort param) {
+        List<E> listByParamWithSort = baseService.getListByParamWithSort(param);
+        if (Objects.equals(this.getClassOfE(), this.getClassOfV())) {
+            return (List<V>) listByParamWithSort;
+        }
+        return listByParamWithSort.stream().map(entity -> BeanUtils.copyProperties(entity, this.getClassOfV())).collect(Collectors.toList());
     }
 
     /**
