@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import java.util.Objects;
@@ -23,7 +22,6 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@GenericGenerator(name = BaseEntity.ID_GENERATOR_NAME, strategy = "guid")
 public class Test extends BaseEntity<String> {
 
     private static final long serialVersionUID = -102773664852850638L;

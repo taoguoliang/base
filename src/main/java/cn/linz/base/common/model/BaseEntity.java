@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -32,14 +35,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
+@DynamicInsert
+@DynamicUpdate
 public class BaseEntity<K extends Serializable> implements Serializable {
 
     private static final long serialVersionUID = 1663734744181943264L;
 
-    public static final String ID_GENERATOR_NAME = "id_generator";
-
     @Id
-    @GeneratedValue(generator = ID_GENERATOR_NAME)
+    @GeneratedValue(generator = "custom_generator")
+    @GenericGenerator(name = "custom_generator", strategy = "cn.linz.base.config.CustomIdentifierGenerator")
     private K id;
 
     @ApiModelProperty("创建时间")
