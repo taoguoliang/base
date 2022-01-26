@@ -8,7 +8,7 @@
         <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>cn.linz</groupId>
+    <groupId>io.github.taoguoliang</groupId>
     <artifactId>linz-base</artifactId>
     <version>1.0.0</version>
     <name>linz-base</name>
@@ -111,12 +111,12 @@
         <repository>
             <id>nexus-releases</id>
             <name>Nexus Release Repository</name>
-            <url>https://nexus.ideamake.cn/repository/maven-releases/</url>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>https://nexus.ideamake.cn/repository/maven-snapshots/</url>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
