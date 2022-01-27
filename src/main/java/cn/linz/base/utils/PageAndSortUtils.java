@@ -15,6 +15,7 @@ import java.util.List;
  * PageAndSortUtils
  *
  * @author taogl
+ * @version 1.0.0
  */
 public final class PageAndSortUtils {
 
@@ -27,6 +28,7 @@ public final class PageAndSortUtils {
      * @param pageAndSort 分页及排序
      * @description 设置分页信息
      * @author taogl
+     * @return a {@link org.springframework.data.domain.PageRequest} object
      */
     public static PageRequest buildPageRequest(PageAndSort pageAndSort) {
         if (pageAndSort.getOffset() != null) {
@@ -42,6 +44,7 @@ public final class PageAndSortUtils {
      * @param sort 排序字段
      * @description 设置排序
      * @author taogl
+     * @return a {@link org.springframework.data.domain.Sort} object
      */
     public static Sort sequence(BaseSort sort) {
         if (sort.getOrders() != null && !sort.getOrders().isEmpty()) {
@@ -55,11 +58,11 @@ public final class PageAndSortUtils {
      *
      * @param direction 顺序
      * @param field 字段
-     * @return
      * @description 设置排序
      * @author taogl
      * @date 2018年9月7日 上午10:32:52
      * @version 1.0.0
+     * @return a {@link org.springframework.data.domain.Sort.Order} object
      */
     public static Order sequence(Direction direction, String field) {
         return new Order(direction, field);
@@ -72,7 +75,9 @@ public final class PageAndSortUtils {
      * @param pageable 分页参数
      * @description 把传入的List分页返回
      * @author taogl
-     **/
+     * @param <T> a T class
+     * @return a {@link org.springframework.data.domain.Page} object
+     */
     public static <T> Page<T> listConvertToPage(List<T> list, PageAndSort pageable) {
         int start = pageable.getOffset();
         int end = Math.min((start + pageable.getLimit()), list.size());

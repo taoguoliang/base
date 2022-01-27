@@ -21,12 +21,14 @@ import java.util.List;
 @Component
 public class LikeinSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<Likein> getAnnotation() {
         return Likein.class;
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,

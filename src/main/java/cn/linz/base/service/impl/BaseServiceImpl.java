@@ -13,6 +13,7 @@ import java.io.Serializable;
  *
  * @author taogl
  * @date 2021/12/12 13:42
+ * @version 1.0.0
  */
 @Service("baseService")
 @Scope("prototype")
@@ -21,6 +22,7 @@ public class BaseServiceImpl<E, K extends Serializable> implements BaseService<E
     @Resource(name = "baseRepository")
     private BaseRepository<E, K> baseRepository;
 
+    /** {@inheritDoc} */
     @Override
     public BaseRepository<E, K> getBaseRepository() {
         return baseRepository;

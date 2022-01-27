@@ -34,6 +34,13 @@ public final class SpecificationSupplier {
 
     }
 
+    /**
+     * <p>buildSpecification.</p>
+     *
+     * @param param a {@link java.lang.Object} object
+     * @param <T> a T class
+     * @return a {@link org.springframework.data.jpa.domain.Specification} object
+     */
     public static <T> Specification<T> buildSpecification(Object param) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = paramToPredicate(root, criteriaBuilder, param);
@@ -77,16 +84,34 @@ public final class SpecificationSupplier {
     }
 
     /**
+     * <p>getListeners.</p>
+     *
      * @return the listeners
      */
     public static Map<Class<?>, SpecificationListener> getListeners() {
         return LISTENER_MAP;
     }
 
+    /**
+     * <p>addListener.</p>
+     *
+     * @param cls a {@link java.lang.Class} object
+     * @param listener a {@link cn.linz.base.spec.listener.SpecificationListener} object
+     */
     public static synchronized void addListener(Class<?> cls, SpecificationListener listener) {
         SpecificationSupplier.LISTENER_MAP.put(cls, listener);
     }
 
+    /**
+     * <p>paramToPredicate.</p>
+     *
+     * @param from a {@link javax.persistence.criteria.From} object
+     * @param criteriaBuilder a {@link javax.persistence.criteria.CriteriaBuilder} object
+     * @param param a {@link java.lang.Object} object
+     * @param <Z> a Z class
+     * @param <X> a X class
+     * @return a {@link java.util.List} object
+     */
     public static <Z, X> List<Predicate> paramToPredicate(From<Z, X> from, CriteriaBuilder criteriaBuilder,
             Object param) {
         List<Predicate> predicates = new ArrayList<>();

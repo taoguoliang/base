@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author taogl
  * @date 2021/12/12 01:03
+ * @version 1.0.0
  */
 @RestController
 @RequestMapping("api")

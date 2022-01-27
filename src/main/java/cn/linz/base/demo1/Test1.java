@@ -15,6 +15,7 @@ import java.util.Objects;
  *
  * @author taogl
  * @date 2021/12/12 01:04
+ * @version 1.0.0
  */
 @Entity
 @Getter
@@ -29,6 +30,7 @@ public class Test1 extends BaseEntity<Integer> {
 
     private Integer age;
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -41,6 +43,7 @@ public class Test1 extends BaseEntity<Integer> {
         return getId() != null && Objects.equals(getId(), test1.getId());
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return getClass().hashCode();

@@ -14,6 +14,7 @@ import java.lang.annotation.Target;
  *
  * @author taogl
  * @date 2021/12/13 9:49 AM
+ * @version 1.0.0
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

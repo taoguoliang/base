@@ -19,15 +19,14 @@ import javax.persistence.criteria.Predicate;
 @Component
 public class NotNullSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<NotNull> getAnnotation() {
         return NotNull.class;
     }
 
-    /**
-     * @see AbstractListener#buildPredicate(CriteriaBuilder, From, String, Object, Object)
-     */
+    /** {@inheritDoc} */
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,
             Object value,

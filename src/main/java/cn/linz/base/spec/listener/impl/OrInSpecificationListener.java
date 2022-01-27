@@ -31,6 +31,7 @@ public class OrInSpecificationListener extends AbstractListener {
 
     private static final String STRING = "-9999";
 
+    /** {@inheritDoc} */
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,
             Object value,
@@ -82,6 +83,7 @@ public class OrInSpecificationListener extends AbstractListener {
         return false;
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<OrIn> getAnnotation() {

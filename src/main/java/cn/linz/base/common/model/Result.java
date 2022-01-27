@@ -12,7 +12,8 @@ import java.io.Serializable;
  *
  * @author taogl
  * @date 2021/12/10 10:31 AM
- **/
+ * @version 1.0.0
+ */
 @ToString
 @Getter
 @Setter
@@ -52,6 +53,7 @@ public class Result<T> implements Serializable {
 
     /**
      * warn
+     *
      * @param <T> T
      * @return 结果
      */
@@ -61,6 +63,7 @@ public class Result<T> implements Serializable {
 
     /**
      * warn
+     *
      * @param <T> T
      * @param msg 警告⚠️信息
      * @return 结果

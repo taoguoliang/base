@@ -15,6 +15,7 @@ import java.util.List;
  *
  * @author taogl
  * @date 2022/1/11 11:27 AM
+ * @version 1.0.0
  */
 @Getter
 @Setter
@@ -36,6 +37,7 @@ public class BaseSort {
 
     /**
      * 设置排序
+     *
      * @param sort 排序字段
      */
     public void setSort(String sort) {

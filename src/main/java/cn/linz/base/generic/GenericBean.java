@@ -13,10 +13,16 @@ import java.lang.reflect.ParameterizedType;
  * @param <V> 展示VO
  * @author taogl
  * @date 2021/12/10 10:43 AM
+ * @version 1.0.0
  */
 @SuppressWarnings("unchecked")
 public class GenericBean<E, D, Q, V> {
 
+    /**
+     * <p>getInstanceOfE.</p>
+     *
+     * @return a E object
+     */
     public E getInstanceOfE() {
         ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
         Class<E> type = (Class<E>) superClass.getActualTypeArguments()[0];
@@ -28,18 +34,38 @@ public class GenericBean<E, D, Q, V> {
         }
     }
 
+    /**
+     * <p>getClassOfE.</p>
+     *
+     * @return a {@link java.lang.Class} object
+     */
     public Class<E> getClassOfE() {
         return (Class<E>) this.getClassOfGeneric(0);
     }
 
+    /**
+     * <p>getClassOfD.</p>
+     *
+     * @return a {@link java.lang.Class} object
+     */
     public Class<D> getClassOfD() {
         return (Class<D>) this.getClassOfGeneric(1);
     }
 
+    /**
+     * <p>getClassOfQ.</p>
+     *
+     * @return a {@link java.lang.Class} object
+     */
     public Class<Q> getClassOfQ() {
         return (Class<Q>) this.getClassOfGeneric(2);
     }
 
+    /**
+     * <p>getClassOfV.</p>
+     *
+     * @return a {@link java.lang.Class} object
+     */
     public Class<V> getClassOfV() {
         return (Class<V>) this.getClassOfGeneric(3);
     }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
  *
  * @author taogl
  * @date 2021/12/13 11:21 AM
+ * @version 1.0.0
  */
 @ComponentScan("cn.linz.base")
 public class BaseCommonConfig {

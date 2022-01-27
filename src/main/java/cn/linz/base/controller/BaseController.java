@@ -29,13 +29,16 @@ import java.util.stream.Collectors;
  *
  * @author taogl
  * @date 2021/12/10 10:36 AM
- **/
+ * @version 1.0.0
+ */
 public abstract class BaseController<E, K extends Serializable, D, Q, V> extends GenericBean<E, D, Q, V> implements InitializingBean {
 
     @Resource(name = "baseService")
     private BaseService<E, K> baseService;
 
     /**
+     * {@inheritDoc}
+     *
      * 初始化默认范型实体
      * 这里是为了让继承此类的接口类，能传入当前接口操作的实体，然后通过 Service 传入 repository
      * 传入到 repository 之后 就可以使用 EntityManager 的通用方法了
@@ -53,7 +56,7 @@ public abstract class BaseController<E, K extends Serializable, D, Q, V> extends
      * @return 返回的VO结果
      * @author taogl
      * @date 2021/12/10 3:26 PM
-     **/
+     */
     @ApiOperation(value = "新增一个实体", notes = "新增一个实体")
     @PostMapping
     public Result<V> save(@RequestBody D dto) {
@@ -70,7 +73,7 @@ public abstract class BaseController<E, K extends Serializable, D, Q, V> extends
      * @return Result<V>
      * @author taogl
      * @date 2021/12/10 5:39 PM
-     **/
+     */
     @PostMapping("/actions/save-before-check")
     @ApiOperation(value = "special:新增一个实体", notes = "新增一个实体，先校验数据是否存在")
     public Result<V> saveBeforeCheck(@RequestBody D dto) {
@@ -89,7 +92,7 @@ public abstract class BaseController<E, K extends Serializable, D, Q, V> extends
      * @return vo结果
      * @author taogl
      * @date 2021/12/10 4:52 PM
-     **/
+     */
     @ApiOperation(value = "新增或更新实体", notes = "新增或更新实体")
     @PutMapping
     public Result<V> saveOrUpdate(@RequestParam(value = "id", required = false) K id, @RequestBody D dto) {

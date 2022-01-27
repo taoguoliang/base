@@ -21,6 +21,7 @@ import java.util.Collection;
 @Component
 public class OrNotInSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,
             Object value,
@@ -40,6 +41,7 @@ public class OrNotInSpecificationListener extends AbstractListener {
         return criteriaBuilder.or(criteriaBuilder.not(in));
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<OrNotIn> getAnnotation() {

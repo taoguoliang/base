@@ -22,11 +22,13 @@ import java.util.Properties;
  * 自定义id生成器
  *
  * @author taogl
+ * @version 1.0.0
  */
 public class CustomIdentifierGenerator extends IdentityGenerator implements Configurable {
 
     private static final UUIDGenerator UUID_GENERATOR = new UUIDGenerator();
 
+    /** {@inheritDoc} */
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
         try {
@@ -49,6 +51,7 @@ public class CustomIdentifierGenerator extends IdentityGenerator implements Conf
         throw new IdGeneratorException("ID生成异常,主键类型未配置生成器:" + type);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void configure(Type type, Properties params, ServiceRegistry serviceRegistry) throws MappingException {
         if (type instanceof StringType) {

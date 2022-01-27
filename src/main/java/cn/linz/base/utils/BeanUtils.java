@@ -42,7 +42,7 @@ public final class BeanUtils {
      * @author taogl
      * @date 2019/11/11 11:01
      * @version v1.0.0
-     **/
+     */
     public static void copyNotNullProperties(Object source, Object target) {
         BeanUtil.copyProperties(source, target, getNullPropertyNames(source));
     }
@@ -55,7 +55,8 @@ public final class BeanUtils {
      * @return T
      * @author taogl
      * @date 2021/12/10 10:55 AM
-     **/
+     * @param <T> a T class
+     */
     public static <T> T copyProperties(Object source, Class<T> cls) {
         T target = ReflectUtil.newInstanceIfPossible(cls);
         BeanUtil.copyProperties(source, target);
@@ -70,7 +71,9 @@ public final class BeanUtils {
      * @return D
      * @author taogl
      * @date 2021/12/10 4:46 PM
-     **/
+     * @param <S> a S class
+     * @param <D> a D class
+     */
     @SuppressWarnings("unchecked")
     public static <S, D> D getBeanCheckCls(S source, Class<D> cls) {
         if (Objects.equals(source.getClass(), cls)) {

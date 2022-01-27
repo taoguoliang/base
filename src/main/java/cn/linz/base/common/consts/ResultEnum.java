@@ -8,6 +8,7 @@ import lombok.Getter;
  *
  * @author taogl
  * @date 2021/12/10 5:34 PM
+ * @version 1.0.0
  */
 @AllArgsConstructor
 @Getter

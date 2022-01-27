@@ -21,6 +21,7 @@ import javax.persistence.criteria.Predicate;
 @Slf4j
 public class OrGreaterOrEqualSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,
@@ -29,6 +30,7 @@ public class OrGreaterOrEqualSpecificationListener extends AbstractListener {
         return criteriaBuilder.or(criteriaBuilder.greaterThanOrEqualTo(from.get(name), (Comparable) value));
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<OrGreaterOrEqual> getAnnotation() {

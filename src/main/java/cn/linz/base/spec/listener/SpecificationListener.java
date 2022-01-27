@@ -20,14 +20,15 @@ public interface SpecificationListener {
      *
      * @param param 用来构建条件的参数实体
      * @param field 查询对象的当前字段
-     * @param criteriaBuilder
-     * @param root
-     * @param <Z,X>
-     * @return
+     * @param criteriaBuilder a {@link javax.persistence.criteria.CriteriaBuilder} object
+     * @param root a {@link javax.persistence.criteria.From} object
      * @description 执行监听器逻辑
      * @author taogl
      * @date 2019年3月27日 下午4:16:48
      * @version v1.2.0
+     * @param <Z> a Z class
+     * @param <X> a X class
+     * @return a {@link javax.persistence.criteria.Predicate} object
      */
     <Z, X> Predicate execute(Object param, Field field, CriteriaBuilder criteriaBuilder, From<Z, X> root);
 

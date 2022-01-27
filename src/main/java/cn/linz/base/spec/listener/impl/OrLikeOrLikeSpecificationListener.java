@@ -22,15 +22,14 @@ import java.util.List;
 @Component
 public class OrLikeOrLikeSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<OrLikeOrLike> getAnnotation() {
         return OrLikeOrLike.class;
     }
 
-    /**
-     * @see AbstractListener#buildPredicate(CriteriaBuilder, From, String, Object, Object)
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,

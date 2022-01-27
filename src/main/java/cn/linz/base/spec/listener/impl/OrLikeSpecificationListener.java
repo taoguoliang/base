@@ -21,6 +21,7 @@ import javax.persistence.criteria.Predicate;
 @Slf4j
 public class OrLikeSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,
             Object value,
@@ -29,6 +30,7 @@ public class OrLikeSpecificationListener extends AbstractListener {
         return criteriaBuilder.or(criteriaBuilder.like(from.get(name), "%" + valueStr + "%"));
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<OrLike> getAnnotation() {

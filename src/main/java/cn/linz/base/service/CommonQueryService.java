@@ -24,7 +24,7 @@ public interface CommonQueryService<E> {
      * @return 列表集合
      * @description 列表查询
      * @author taogl
-     **/
+     */
     List<E> getListByParam(Object param);
 
     /**
@@ -42,7 +42,7 @@ public interface CommonQueryService<E> {
      * @return 分页集合
      * @description 根据jpa-plus的参数查询分页数据
      * @author taogl
-     **/
+     */
     Page<E> getPageList(PageAndSort param);
 
 }

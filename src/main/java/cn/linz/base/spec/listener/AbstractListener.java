@@ -23,10 +23,14 @@ import java.lang.reflect.Method;
  */
 public abstract class AbstractListener implements SpecificationListener {
 
+    /**
+     * <p>Constructor for AbstractListener.</p>
+     */
     public AbstractListener() {
         SpecificationSupplier.addListener(this.getAnnotation(), this);
     }
 
+    /** {@inheritDoc} */
     @Override
     public <Z, X> Predicate execute(Object param, Field field, CriteriaBuilder criteriaBuilder, From<Z, X> from) {
         Annotation annotation = field.getAnnotation(getAnnotation());
@@ -60,27 +64,30 @@ public abstract class AbstractListener implements SpecificationListener {
     /**
      * AbstractListener
      *
-     * @return
      * @description 获取相对应的注解类
      * @author taogl
      * @date 2019年3月27日 下午5:14:40
      * @version v1.0.0
+     * @param <T> a T class
+     * @return a {@link java.lang.Class} object
      */
     public abstract <T> Class<T> getAnnotation();
 
     /**
      * AbstractListener
      *
-     * @param criteriaBuilder
-     * @param from {@link From}
+     * @param criteriaBuilder a {@link javax.persistence.criteria.CriteriaBuilder} object
+     * @param from {@link javax.persistence.criteria.From}
      * @param name 实体类的属性名
      * @param value 对应属性的值
      * @param annotation 当前字段使用的注解
-     * @return {@link Predicate}
+     * @return {@link javax.persistence.criteria.Predicate}
      * @description 提供条件的构建逻辑
      * @author taogl
      * @date 2019年3月27日 下午5:15:59
      * @version v1.2.0
+     * @param <Z> a Z class
+     * @param <X> a X class
      */
     protected abstract <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,
             Object value, Object annotation);

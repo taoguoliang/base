@@ -24,16 +24,14 @@ import java.util.List;
 @Slf4j
 public class LikeOrLikeSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<LikeOrLike> getAnnotation() {
         return LikeOrLike.class;
     }
 
-    /**
-     * @see AbstractListener#buildPredicate(CriteriaBuilder,
-     *         javax.persistence.criteria.Root, String, Object)
-     */
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,

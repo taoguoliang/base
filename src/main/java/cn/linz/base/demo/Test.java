@@ -5,6 +5,7 @@ package cn.linz.base.demo;
  *
  * @author taogl
  * @date 2021/12/12 01:04
+ * @version 1.0.0
  */
 
 import cn.linz.base.common.model.BaseEntity;
@@ -30,6 +31,7 @@ public class Test extends BaseEntity<String> {
 
     private Integer age;
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -42,6 +44,7 @@ public class Test extends BaseEntity<String> {
         return getId() != null && Objects.equals(getId(), test.getId());
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return getClass().hashCode();

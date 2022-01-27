@@ -21,12 +21,14 @@ import javax.persistence.criteria.Predicate;
 @Slf4j
 public class OrNotNullSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<OrNotNull> getAnnotation() {
         return OrNotNull.class;
     }
 
+    /** {@inheritDoc} */
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,
             Object value,

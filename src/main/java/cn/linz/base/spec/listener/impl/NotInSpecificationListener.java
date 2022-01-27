@@ -23,6 +23,7 @@ import java.util.Collection;
 @Slf4j
 public class NotInSpecificationListener extends AbstractListener {
 
+    /** {@inheritDoc} */
     @Override
     protected <Z, X> Predicate buildPredicate(CriteriaBuilder criteriaBuilder, From<Z, X> from, String name,
             Object value,
@@ -42,6 +43,7 @@ public class NotInSpecificationListener extends AbstractListener {
         return criteriaBuilder.not(in);
     }
 
+    /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     @Override
     public Class<NotIn> getAnnotation() {

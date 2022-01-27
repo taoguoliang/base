@@ -15,10 +15,21 @@ public class BuildSpecificationException extends RuntimeException {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * <p>Constructor for BuildSpecificationException.</p>
+     *
+     * @param message a {@link java.lang.String} object
+     * @param e a {@link java.lang.Throwable} object
+     */
     public BuildSpecificationException(String message, Throwable e) {
         super(message, e);
     }
 
+    /**
+     * <p>Constructor for BuildSpecificationException.</p>
+     *
+     * @param message a {@link java.lang.String} object
+     */
     public BuildSpecificationException(String message) {
         super(message);
     }

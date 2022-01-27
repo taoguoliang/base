@@ -23,7 +23,7 @@ public interface BaseRepository<E, K extends Serializable> extends JpaSpecificat
      * @param cls 默认范型实体
      * @author taogl
      * @date 2021/12/12 21:20
-     **/
+     */
     default void setEntityCls(Class<E> cls) {
     }
 }
