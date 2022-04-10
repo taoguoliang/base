@@ -29,9 +29,8 @@ import java.util.stream.Collectors;
  *
  * @author taogl
  * @date 2021/12/10 10:36 AM
- * @version 1.0.0
- */
-public abstract class BaseController<E, K extends Serializable, D, Q, V> extends GenericBean<E, D, Q, V> implements InitializingBean {
+ **/
+public abstract class BaseController<E, K extends Serializable, D, Q, V> extends GenericBean<E, K, D, Q, V> implements InitializingBean {
 
     @Resource(name = "baseService")
     private BaseService<E, K> baseService;

@@ -1,7 +1,5 @@
 package cn.linz.base.generic;
 
-import cn.linz.base.exception.GenericException;
-
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -16,23 +14,7 @@ import java.lang.reflect.ParameterizedType;
  * @version 1.0.0
  */
 @SuppressWarnings("unchecked")
-public class GenericBean<E, D, Q, V> {
-
-    /**
-     * <p>getInstanceOfE.</p>
-     *
-     * @return a E object
-     */
-    public E getInstanceOfE() {
-        ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
-        Class<E> type = (Class<E>) superClass.getActualTypeArguments()[0];
-        try {
-            return type.newInstance();
-        } catch (Exception e) {
-            // Oops, no default constructor
-            throw new GenericException(e.getMessage(), e);
-        }
-    }
+public class GenericBean<E, K, D, Q, V> {
 
     /**
      * <p>getClassOfE.</p>
@@ -49,7 +31,7 @@ public class GenericBean<E, D, Q, V> {
      * @return a {@link java.lang.Class} object
      */
     public Class<D> getClassOfD() {
-        return (Class<D>) this.getClassOfGeneric(1);
+        return (Class<D>) this.getClassOfGeneric(2);
     }
 
     /**
@@ -58,7 +40,7 @@ public class GenericBean<E, D, Q, V> {
      * @return a {@link java.lang.Class} object
      */
     public Class<Q> getClassOfQ() {
-        return (Class<Q>) this.getClassOfGeneric(2);
+        return (Class<Q>) this.getClassOfGeneric(3);
     }
 
     /**
@@ -67,7 +49,7 @@ public class GenericBean<E, D, Q, V> {
      * @return a {@link java.lang.Class} object
      */
     public Class<V> getClassOfV() {
-        return (Class<V>) this.getClassOfGeneric(3);
+        return (Class<V>) this.getClassOfGeneric(4);
     }
 
     private Class<?> getClassOfGeneric(int idx) {

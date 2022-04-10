@@ -10,7 +10,7 @@
     </parent>
     <groupId>io.github.taoguoliang</groupId>
     <artifactId>linz-base</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>linz-base</name>
     <description>named by my gf.</description>
     <developers>
@@ -21,9 +21,9 @@
     </developers>
     <properties>
         <java.version>1.8</java.version>
-        <fastjson.version>1.2.78</fastjson.version>
-        <knife4j.version>2.0.5</knife4j.version>
-        <hutool-version>5.7.16</hutool-version>
+        <fastjson.version>1.2.80</fastjson.version>
+        <knife4j.version>3.0.3</knife4j.version>
+        <hutool-version>5.7.22</hutool-version>
         <apache.collection4.version>4.4</apache.collection4.version>
     </properties>
     <dependencies>
@@ -44,23 +44,29 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
             <version>${apache.collection4.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -90,6 +96,7 @@
                         <exclude>**/application.yml</exclude>
                         <exclude>**/base/BaseApplication.class</exclude>
                     </excludes>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <!--配置生成源码包-->
