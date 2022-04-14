@@ -1,6 +1,7 @@
 package cn.linz.base.config;
 
 import io.swagger.annotations.Api;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableWebMvc
 @EnableSwagger2
+@ConditionalOnClass(Docket.class)
 public class SwaggerConfig implements WebMvcConfigurer {
 
     /** {@inheritDoc} */
